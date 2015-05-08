@@ -1,0 +1,182 @@
+# Floating Windows
+for_window [class="XTerm"] floating enable
+for_window [instance="^urxvt$" class="URxvt"] floating enable, border 1pixel
+for_window [class="Spotify"] floating enable
+
+
+# 0px Border Windows
+for_window [class="Chromium"] border none
+for_window [class="Firefox"] border none
+
+
+# 1px Border Windows
+for_window [instance="^myurxvt$" class="URxvt"] border 1pixel
+for_window [class="Spotify"] border 1pixel
+for_window [class="Terminator"] border 1pixel
+new_window 1pixel
+
+# Modkey
+set $mod Mod1
+
+# Aesthetics
+bindsym $mod+Shift+n border normal
+bindsym $mod+Shift+x border none
+bindsym $mod+Shift+o border 1pixel
+
+# Font
+# font -gohu-gohufont-*-*-*-*-11-*-*-*-*-*-*-*
+#font -*-terminus-*-*-*-*-*-*-*-*-*-*-*-*
+
+# Mod+Mouse to move (isn't really needed)
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec urxvt
+bindsym $mod+Shift+Return exec--no-startup-id /usr/bin/myurxvt -hold -e bash -c "specy && zsh"
+
+# Failed attempts/for reference ^,^ 
+#bindsym $mod+Shift+Return exec python ~/.i3/runorfocus.py myURX urxvt
+#bindsym $mod+Shift+Return exec python2 ~/.i3/nextwindow.py myURX urxvt
+
+# kill focused window
+bindsym $mod+Shift+q kill
+  
+# Start dmenu
+bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+bindsym $mod+Control+Left exec "i3-msg move left && i3-msg move left && i3-msg move left && i3-msg move left && i3-msg move left"
+bindsym $mod+Control+Down exec "i3-msg move down && i3-msg move down && i3-msg move down && i3-msg move down && i3-msg move down"
+bindsym $mod+Control+Up exec "i3-msg move up && i3-msg move up && i3-msg move up && i3-msg move up && i3-msg move up"
+bindsym $mod+Control+Right exec "i3-msg move right && i3-msg move right && i3-msg move right && i3-msg move right && i3-msg move right"
+
+#open Chromium
+#bindsym $mod+Shift+c exec Chromium
+
+#open Dolphin
+#bindsym $mod+Shift+d exec Dolphin
+
+#open skype
+bindsym $mod+s exec skype
+
+#open alsa mixer for volume control
+bindsym $mod+Shift+s exec urxvt -e /usr/bin/bash -c "alsamixer"
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Switch workplace and what i use them for. I removed the static names for space purposes
+#: First set workspace order
+
+set $WS1 "1:"
+set $WS2 "2:"
+set $WS3 "3:"
+set $WS4 "4:"
+set $WS5 "5:"
+set $WS6 "6:"
+set $WS7 "7:"
+set $WS8 "8:"
+set $WS9 "9:"
+set $WS10 "10:"
+
+#: Dolphin
+bindsym $mod+1 workspace $WS1
+#: Web
+bindsym $mod+2 workspace $WS2
+#: Netbeans
+bindsym $mod+3 workspace $WS3
+#: Pycharm
+bindsym $mod+4 workspace $WS4
+#: Extra
+bindsym $mod+5 workspace $WS5
+#: Usually free / Terminals
+bindsym $mod+6 workspace $WS6
+#: Usually free / Terminals / Work
+bindsym $mod+7 workspace $WS7
+#:audio
+bindsym $mod+8 workspace $WS8
+#:Pulse audio
+bindsym $mod+9 workspace $WS9
+#:Skype / Kate
+bindsym $mod+0 workspace $WS10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $WS1
+bindsym $mod+Shift+2 move container to workspace $WS2
+bindsym $mod+Shift+3 move container to workspace $WS3
+bindsym $mod+Shift+4 move container to workspace $WS4
+bindsym $mod+Shift+5 move container to workspace $WS5
+bindsym $mod+Shift+6 move container to workspace $WS6
+bindsym $mod+Shift+7 move container to workspace $WS7
+bindsym $mod+Shift+8 move container to workspace $WS8
+bindsym $mod+Shift+9 move container to workspace $WS9
+bindsym $mod+Shift+0 move container to workspace $WS10
+
+#: volume related keybindings
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2%- unmute
+bindsym XF86AudioMute exec amixer -q set Master toggle
+
+# reload the configuration file
+#bindsym $mod+Shift+c reload
+# restart i3
+bindsym $mod+Shift+r restart
+# exit i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# lock i3
+bindsym $mod+Shift+l exec "~/.i3/bin/lock.sh"
+
+# Colors
+
+# class                 border  backgr. text    indicator
+client.focused          #978965 #402e2e #978965 #978965
+client.unfocused        #402e2e #402e2e #978965 #978965 
+client.focused_inactive #402e2e #402e2e #978965 #978965 
+client.urgent           #402e2e #402e2e #978965 #978965
+
+# Start i3bar
+bar {
+	#status_command i3status -c ~/.i3/i3status.conf
+	#status_command py3status -c ~/.i3/i3status.conf -i ~/.i3
+	status_command i3blocks -c ~/.i3/i3blocks.conf
+	font pango: roboto 9
+	tray_output none
+        position bottom
+        strip_workspace_numbers yes
+	colors {
+    	statusline  #978965
+    	background  #1f1f1f
+
+		#name              #border #bg     #text
+        #separator  #ffffff
+    	focused_workspace  #978965 #978965 #402e2e
+    	active_workspace   #402e2e #402e2e #978965
+    	inactive_workspace #402e2e #402e2e #978965
+    	urgent_workspace   #402e2e #402e2e #978965
+  }
+}
+
+#: redshift for screen 
+exec --no-startup-id redshift

@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+import imaplib
+
+cache_timeout = 60
+criterion = 'UNSEEN'
+imap_server = 'imap'
+mailbox = 'INBOX'
+name = 'unread'
+password = 'password'
+port = '993'
+user = 'user'
+
+def _get_mail_count():
+    try:
+        connection = imaplib.IMAP4_SSL(imap_server, port)
+        connection.login(user, password)
+        connection.select(mailbox)
+        unseen_response = connection.search(None, criterion)
+        mails = unseen_response[1][0].split()
+        mail_count = len(mails)
+        return mail_count
+    except:
+        return 'N/A'
+
+if __name__ == "__main__":
+    x = _get_mail_count()
+    print(x)

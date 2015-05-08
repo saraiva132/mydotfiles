@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+################################
+# Shows current date
+#
+# @param {String} format: The format of the date
+# @return {Date}: Current date
+################################
+
+dir=$(dirname $0)
+source $dir/util.sh
+
+case $BLOCK_BUTTON in
+	# right click: show packages
+	3)
+           gsimplecal
+	;;
+esac
+
+format=${BLOCK_INSTANCE:-"%Y-%m-%d"}
+
+
+date +"$format"
+date +"%m-%d"

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+dir=$(dirname $0)
+source $dir/util.sh
+
+case $BLOCK_BUTTON in
+	# right click: show packages
+	3)
+            exec thunderbird
+	;;
+esac
+
+count=$(~/.i3/blocks/imap)
+
+if [ "$count" -gt "0" ]
+then
+    color=\#009900;
+else
+    color=\#A0A0A0;
+fi
+
+
+echo $count
+echo $short
+echo $color
+exit $status

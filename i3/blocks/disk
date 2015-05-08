@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+################################
+# Shows info about a specified mount point
+#
+# Dependencies:
+# - [notify-send]
+#
+# @param {String} disk: The mount point to check
+# @return {Number(%)}: Space used on the disk
+################################
+
+dir=$(dirname $0)
+source $dir/util.sh
+
+full=""
+short=""
+status=0
+
+disk=${BLOCK_INSTANCE:-/}
+
+
+FS=$(df -h $disk | sed -n '2 p')
+FS=($FS)
+
+if [ ${FS[4]%?} -ge 90 ]; then
+    color=\#FF0000
+else
+    color=\#A0A0A0
+fi
+
+full=${FS[4]}
+short=$full
+
+
+case $BLOCK_BUTTON in
+	# right click: show packages
+	3)
+		summary=$(du -h --max-depth=1 --exclude=/proc --exclude=/sys /)
+		notify-send "Disk usage" "$summary"
+		
+	;;
+esac
+
+
+echo $full
+echo $short
+echo $color
+exit $status
