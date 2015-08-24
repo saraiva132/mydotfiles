@@ -8,4 +8,4 @@ My personal dotfiles.
 
 #Wallpaper
 
-![alt tag](wallpaper.png)
+![alt tag](wallpaper.jpg)
